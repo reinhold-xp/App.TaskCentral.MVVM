@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+
+    <Color x:Key="DarkBlue">#212B4F</Color>
+    <Color x:Key="LightBlue">#8A8BA6</Color>
+
+    <Style Class="DarkBlue" TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource DarkBlue}, Dark={StaticResource White}}" />
+    </Style>
+
+    <Style Class="LightBlue" TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightBlue}, Dark={StaticResource White}}" />
+    </Style>
+
+    <Style Class="Header" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="Title" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style Class="SubHeader" TargetType="Label">
+        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style Class="CardTitle" TargetType="Label">
+        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Shadow
+        x:Key="shadow"
+        Brush="#CFD0D4"
+        Opacity="0.6"
+        Radius="15"
+        Offset="10,15" />
+
+    <Style TargetType="RoundRectangle">
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Fill" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray600}}" />
+        <Setter Property="Shadow" Value="{AppThemeBinding Light={StaticResource shadow}}" />
+
+    </Style>
+
+    <EllipseGeometry
+        x:Key="circle"
+        Center="50,50"
+        RadiusX="35"
+        RadiusY="35"/>
+
+    <Style x:Key="CircularButtonRight" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray600}}"/>
+        <Setter Property="TextColor" Value="White"/>
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="50" />
+        <Setter Property="HeightRequest" Value="100" />
+        <Setter Property="WidthRequest" Value="100" />
+        <Setter Property="VerticalOptions" Value="End" />
+        <Setter Property="HorizontalOptions" Value="End" />
+        <Setter Property="Clip" Value="{StaticResource circle}"/>
+    </Style>
+
+    <Style x:Key="CircularButtonLeft" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray600}}"/>
+        <Setter Property="TextColor" Value="White"/>
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="35" />
+        <Setter Property="HeightRequest" Value="100" />
+        <Setter Property="WidthRequest" Value="100" />
+        <Setter Property="VerticalOptions" Value="End" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="Clip" Value="{StaticResource circle}"/>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModel="clr-namespace:Tasker.MVVM.ViewModels"
+             x:Class="Tasker.MVVM.Views.EditView">
+
+    <Grid RowDefinitions=".8*,.2*" Margin="20" VerticalOptions="Center">
+
+        <StackLayout >
+
+            <CollectionView  ItemsSource="{Binding NestedTasks}" >
+
+                <CollectionView.ItemTemplate >
+                    <DataTemplate>
+
+                        <SwipeView>
+
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem
+                                        Text="Supprimer"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Gray500}}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModel:EditViewModel}}, Path=DeleteCommand}"
+                                        CommandParameter="{Binding}"
+                                        
+                                        />
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+
+                            <Frame BackgroundColor="{AppThemeBinding Dark= {StaticResource Gray600}} ">
+                                <HorizontalStackLayout  >
+
+                                    <Label Text="{Binding Name}"
+                                       
+                                       BackgroundColor="{AppThemeBinding Dark= {StaticResource Gray600}} "
+                                       VerticalOptions="Center"/>
+
+                                </HorizontalStackLayout>
+                            </Frame>
+
+                        </SwipeView>
+
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+        </StackLayout>
+
+
+        <Button Grid.Row="1"
+
+                CornerRadius="30"
+                HeightRequest="65"
+                WidthRequest="150"
+                VerticalOptions="End"
+                HorizontalOptions="Center"
+                Text="Supprimer"
+                Clicked="Button_ClickedAsync"/>
+
+
+    </Grid>
+
+
+</ContentPage>

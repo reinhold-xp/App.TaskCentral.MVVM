@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:Tasker.Converters"
+             NavigationPage.HasNavigationBar="True"
+             Title="Tâches"
+             x:Class="Tasker.MVVM.Views.MainView">
+
+    <NavigationPage.TitleView>
+        <Label
+            Text="Mes tâches"
+            TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray200}}"
+            FontFamily="Roboto"
+            FontSize="Title"/>
+    </NavigationPage.TitleView>
+
+    <!-- On instancie le converter qui retourne une couleur system à paritr d'un code hexadecimal -->
+    <ContentPage.Resources>
+        <converter:ColorConverter x:Key="ColorConverter" />
+    </ContentPage.Resources>
+
+    <Grid Margin="10,20" RowDefinitions=".3*,.7*" Padding="10">
+
+        <Grid Grid.Row="0" RowDefinitions=".2*, .8*" Padding="0">
+
+            <Label StyleClass="LightBlue,SubHeader" Text="PROJETS" Margin="0,0,0,10"/>
+
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Projects}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Grid Padding="10" >
+
+                            <RoundRectangle />
+  
+                            <VerticalStackLayout Padding="0" Spacing="10" >
+
+                                <Label StyleClass="LightBlue" Text="{Binding TasksToString}" Margin="10,5">
+
+                                    <Label.GestureRecognizers>
+
+                                        <TapGestureRecognizer
+                                           NumberOfTapsRequired="1"
+                                            Tapped="TapGestureRecognizer_Tapped"                                          
+                                           CommandParameter="{Binding .}" />
+
+                                    </Label.GestureRecognizers>
+
+                                </Label>
+
+                                <Label StyleClass="DarkBlue,CardTitle" Text="{Binding Name}" Margin="10,0" Padding="0">
+                                    <Label.GestureRecognizers>
+
+                                        <TapGestureRecognizer
+                                           NumberOfTapsRequired="1"
+                                            Tapped="TapGestureRecognizer_Tapped"                                          
+                                           CommandParameter="{Binding .}" />
+
+                                    </Label.GestureRecognizers>
+
+                                </Label>
+
+                                <ProgressBar Progress="{Binding Percentage}"
+                                             Margin="15,0"
+                                             ProgressColor="{Binding Color, Converter={StaticResource ColorConverter}}" >
+
+                                    <ProgressBar.GestureRecognizers>
+
+                                        <TapGestureRecognizer
+                                           NumberOfTapsRequired="1"
+                                            Tapped="TapGestureRecognizer_Tapped"                                          
+                                           CommandParameter="{Binding .}" />
+
+                                    </ProgressBar.GestureRecognizers>
+
+                                </ProgressBar>
+                            </VerticalStackLayout>
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+        <Grid Grid.Row="1" RowDefinitions=".1*, .9*" Padding="0" Margin="0,10">
+
+            <Label StyleClass="LightBlue,SubHeader" Text="TACHES EN ATTENTE"/>
+
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Tasks}" ItemsUpdatingScrollMode="KeepLastItemInView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Transparent" Padding="0">
+                            <HorizontalStackLayout >
+
+                                <CheckBox
+                                    x:Name="checkBox"
+                                    CheckedChanged="CheckBox_CheckedChanged"
+                                    IsChecked="{Binding Completed}"
+                                    VerticalOptions="Center"
+                                    Color="{Binding TaskColor, Converter={StaticResource ColorConverter}}" />
+
+                                <Label Text="{Binding Name}" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
+
+        <Button
+            Margin="0,0,0,55"
+            Grid.Row="1"
+            Clicked="Button_Clicked"
+            Style="{StaticResource CircularButtonRight}"
+            Text="+" />
+
+    </Grid>
+</ContentPage>
